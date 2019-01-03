@@ -1,0 +1,18 @@
+2019-01-03 10:49:24.076[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 10:51:31.198[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-02 23:59:09.702[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 00:00:00.048[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily (SELECT product_id,shop_id,create_time,count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
+2019-01-03 00:00:00.067[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
+2019-01-03 00:00:00.827[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-<==    Updates: 2
+2019-01-03 14:09:19.033[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 14:10:07.944[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 14:10:19.286[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily (SELECT product_id,shop_id,date_format(create_time,'%Y-%m-%d'),count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
+2019-01-03 14:10:19.325[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
+2019-01-03 14:16:05.397[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 14:16:17.276[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily(product_id,shop_id,create_time,total) (SELECT product_id,shop_id,date_format(create_time,'%Y-%m-%d'),count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
+2019-01-03 14:16:17.318[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
+2019-01-03 14:16:18.240[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-<==    Updates: 2
+2019-01-03 14:16:34.950[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-03 14:16:47.320[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-==>  Preparing: insert into tb_product_sell_daily(product_id,shop_id,create_time,total) (select p.product_id,p.shop_id,date_sub(curdate(),interval 1 day),0 AS total FROM tb_product p WHERE p.product_id not in (select product_id from tb_product_sell_daily where date_format(create_time,'%Y-%m-%d') =date_sub(curdate(),interval 1 day)) ) 
+2019-01-03 14:16:47.363[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-==> Parameters: 
+2019-01-03 14:16:49.188[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-<==    Updates: 1
