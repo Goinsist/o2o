@@ -6,9 +6,7 @@ $(function() {
     //获取商品信息的URL
     var productUrl = '/o2o/shopadmin/getproductbyid?productId='
         + productId;
-    function  getContextPath() {
-        return "/o2o/";
-    }
+
 //访问后台获取该商品的信息并渲染
     $.getJSON(
 
@@ -37,11 +35,11 @@ $('#product-point').text('购买可得'+product.point+'积分');
                     product.productImgList.map(function(item, index) {
                         imgListHtml += '<div> <img src="' +getContextPath()+item.imgAddr + '" width="100%"/></div>';
                     });
-                    // if(data.needQRCode) {
-                    //     // 生成购买商品的二维码供商家扫描
-                    //     imgListHtml += '<div> <img src="/o2o/frontend/generateqrcode4product?productId='
-                    //         + product.productId + '" width="100%"/></div>';
-                    // }
+                    if(data.needQRCode) {
+                         // 若顾客已登录,生成购买商品的二维码供商家扫描
+                         imgListHtml += '<div> <img src="/o2o/frontend/generateqrcode4product?productId='
+                             + product.productId + '" width="100%"/></div>';
+                     }
                     $('#imgList').html(imgListHtml);
                 }
             });

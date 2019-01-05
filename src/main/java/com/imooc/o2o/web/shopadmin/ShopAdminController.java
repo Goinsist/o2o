@@ -86,5 +86,28 @@ public class ShopAdminController {
         //转发至店铺的消费记录页面
         return "shop/productbuycheck";
     }
+    @RequestMapping(value = "/awardmanagement",method = RequestMethod.GET)
+    public String awardManagement(){
+        //奖品管理页路由
+        return "frontend/awardmanagement";
+    }
+
+    @RequestMapping(value = "/awardoperation",method = RequestMethod.GET)
+    public String awardEdit(){
+        //奖品编辑页路由
+        return "shop/awardoperation";
+    }
+    @RequestMapping(value = "/usershopcheck",method = RequestMethod.GET)
+    public String userShopCheck(){
+        //店铺用户积分统计路由
+        return "shop/usershopcheck";
+    }
+    @RequestMapping(value = "/awarddelivercheck",method = RequestMethod.GET)
+    public String awardDeliverCheck(){
+        //店铺用户积分兑换路由
+        return "shop/awarddelivercheck";
+    }
+
+
 
 }

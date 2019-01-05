@@ -21,10 +21,10 @@ $(function() {
 	//渲染出店铺基本信息以及商品类别列表以供搜索
     getSearchDivData();
     //预先加载10条商品信息
-	addItems(pageSize,pageNum);
+	addItems(pageSize,pageNum)
 
 	//给对话礼品的a标签赋值兑换礼品的url，2.0讲解
-	// #('#exchangelist').attr('href','/o2o/frontend/awardlist?shopId='+shopId);
+	#('#exchangelist').attr('href','/o2o/frontend/awardlist?shopId='+shopId);
 //获取本店铺信息以及商品类别信息列表
 
 	function getSearchDivData() {

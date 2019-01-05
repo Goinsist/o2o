@@ -2,6 +2,7 @@ package com.imooc.o2o.service;
 
 import com.imooc.o2o.dto.UserProductMapExecution;
 import com.imooc.o2o.entity.UserProductMap;
+import com.imooc.o2o.exceptions.UserProductMapOperationException;
 
 public interface UserProductMapService {
 /**
@@ -13,4 +14,7 @@ public interface UserProductMapService {
 * @date 2019/1/3 0003 11:23
 */
     UserProductMapExecution listUserProductMap(UserProductMap userProductMapCondition, Integer pageIndex, Integer pageSize);
+/*添加消费记录
+ */
+UserProductMapExecution addUserProductMap(UserProductMap userProductMap)throws UserProductMapOperationException;
 }

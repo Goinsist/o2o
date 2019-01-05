@@ -160,7 +160,7 @@ if(shopName!=null){
     //查询名字里包含shopName的店铺列表
     shopCondition.setShopName(shopName);
 }
-//前端战士的店铺都是审核成功的店铺
+//前端展示的店铺都是审核成功的店铺
     shopCondition.setEnableStatus(1);
 return shopCondition;
 

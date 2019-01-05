@@ -15,9 +15,10 @@ getList();
                 userProductMapList.map(function (item, index) {
                     tempHtml += ''
                          +      '<div class="row row-productbuycheck">'
-                         +          '<div class="col-20">'+ item.productName +'</div>'
-                         +          '<div class="col-40 productbuycheck-time">'+ item.createTime +'</div>'
-                         +          '<div class="col-25">'+ item.userName +'</div>'+'<div class="col-15">'+item.point+'</div>'
+                         +          '<div class="col-10">'+ item.product.productName +'</div>'
+                         +          '<div class="col-40 productbuycheck-time">'+ new Date(item.createTime).Format("yyyy-MM-dd hh:mm:ss") +'</div>'
+                         +          '<div class="col-20">'+ item.user.name +'</div>'+'<div class="col-10">'+item.point+'</div>'
+                        +'<div class="col-20">'+item.operator.name+'</div>'
                          +      '</div>';
                 });
                 $('.productbuycheck-wrap').html(tempHtml);

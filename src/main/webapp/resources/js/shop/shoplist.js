@@ -7,8 +7,9 @@ $(function() {
             dataType: "json",
             success: function (data) {
                 if (data.success) {
-                    handleList(data.shopList);
                     handleUser(data.user);
+                    handleList(data.shopList);
+
                 }
             }
 
