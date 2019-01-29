@@ -21,9 +21,17 @@ public class ProductSellDailyServiceImpl implements ProductSellDailyService {
     public void dailyCalculate() {
         log.info("Quartz Running!");
         //统计在tb_user_product_map里面产生销量的每个店铺的各件商品的日销量
-        productSellDailyDao.insertProductSellDaily();
+      int effectednum;
+             effectednum= productSellDailyDao.insertProductSellDaily();
+      if(effectednum>-1){
+          log.info("Quartz 成功插入各店铺日销量");
+      }
         //统计余下的商品的日销量，全部置位0（为了迎合echarts的数据请求）
-        productSellDailyDao.insertDefaultProductSellDaily();
+       effectednum= productSellDailyDao.insertDefaultProductSellDaily();
+      if(effectednum>-1){
+
+          log.info("Quartz 成功插入销量为0商品");
+      }
        // System.out.println("Quartz跑起来啦");
     }
 

@@ -75,9 +75,9 @@ public class FrontendController {
      * 奖品详情页路由
      * @return
      */
-    @RequestMapping(value = "/myawarddetail",method = RequestMethod.GET)
+    @RequestMapping(value = "/awarddetail",method = RequestMethod.GET)
     private String showMyAwardDetail(){
-        return "frontend/myawarddetail";
+        return "frontend/awarddetail";
     }
 
     /**
@@ -99,6 +99,8 @@ public class FrontendController {
     private String showMyPoint(){
         return "frontend/mypoint";
     }
+
+
 
 
 }

@@ -25,10 +25,11 @@ public interface UserAwardMapDao {
 
     /**
      * 根据userAwardId返回某条奖品兑换信息
+     *
      * @param userAwardId
      * @return
      */
-    UserAwardMap queryUserAwardMapById(long userAwardId);
+     UserAwardMap queryUserAwardMapById(long userAwardId);
 
     /**
      * 添加一条奖品兑换信息

@@ -94,7 +94,7 @@ getList();
 						var target = $(e.currentTarget);
 						if (target.hasClass('edit')) {
 							//如果有class edit则点击就进入奖品信息编辑页面，并带有awardId参数
-							window.location.href = '/o2o/shopadmin/awardedit?awardId='
+							window.location.href = '/o2o/shopadmin/awardoperation?awardId='
 									+ e.currentTarget.dataset.id;
 						} else if (target.hasClass('delete')) {
 							//如果有class status则调用后台功能上/下架相关奖品,并带有productId参数

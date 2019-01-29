@@ -14,7 +14,7 @@ getList()
 							+ '<div class="col-10">' + item.award.awardName
 							+ '</div>'
 							+ '<div class="col-40 awarddeliver-time">'
-							+ new Date(item.createTime).Format("yyyy-MM-dd HH:mm:ss")
+							+ new Date(item.createTime).Format("yyyy-MM-dd hh:mm:ss")
 							+ '</div>' + '<div class="col-20">' + item.user.name
 							+ '</div>' + '<div class="col-10">'+item.point+'</div>'+'<div class="col-20">'
 						+item.operator.name+'</div>'+'</div>';

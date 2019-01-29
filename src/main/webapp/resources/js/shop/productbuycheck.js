@@ -52,13 +52,18 @@ function getProductSellDailyList() {
     $.getJSON(listProductSellDailyUrl,function (data) {
         if(data.success){
             var myChart=echarts.init(document.getElementById('chart'));
+
+
             //生成静态的Echart信息的部分
             var option=generateStaticEchartPart();
             //遍历销量统计列表，动态设定echarts的值
             option.legend.data=data.legendData;
             option.xAxis=data.xAxis;
+
             option.series=data.series;
+
             myChart.setOption(option);
+
         }
 
     })
@@ -110,9 +115,10 @@ function generateStaticEchartPart() {
         }
 
         ]
+
     };
 
-    myChart.setOption(option);
+return option;
 
 }
 

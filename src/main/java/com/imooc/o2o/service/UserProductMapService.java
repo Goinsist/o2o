@@ -17,4 +17,5 @@ public interface UserProductMapService {
 /*添加消费记录
  */
 UserProductMapExecution addUserProductMap(UserProductMap userProductMap)throws UserProductMapOperationException;
+UserProductMapExecution getUserProductMapByProductId(Long productId);
 }

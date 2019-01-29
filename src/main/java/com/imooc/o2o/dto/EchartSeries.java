@@ -30,4 +30,8 @@ public class EchartSeries {
     public void setData(List<Integer> data) {
         this.data = data;
     }
+
+    public String getType() {
+        return type;
+    }
 }

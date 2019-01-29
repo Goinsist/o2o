@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class MyProductController {
 * @date 2019/1/5 0005 13:32
 */
 @RequestMapping(value = "/listuserproductmapsbycustomer",method = RequestMethod.GET)
+@ResponseBody
  private Map<String,Object> listUserProductMapsByCustomer(HttpServletRequest request){
 Map<String,Object> modelMap=new HashMap<String, Object>();
 //获取分页信息

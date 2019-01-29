@@ -11,7 +11,7 @@ addItems(pageSize,pageNum);
 //按照查询条件获取奖品兑换记录列表，并生成对应的html元素添加到页面中
 	function addItems(pageSize, pageIndex) {
 		// 生成新条目的HTML
-		var url = listUrl +  'pageIndex=' + pageIndex
+		var url = listUrl +  '?pageIndex=' + pageIndex
 				+ '&pageSize=' + pageSize + '&awardName=' + awardName;
 		loading = true;
 		$.getJSON(url, function(data) {
@@ -27,7 +27,7 @@ addItems(pageSize,pageNum);
 					}else  if(item.usedStatus==1){
 						status="已领取";
 					}
-					html += '' + '<div class="card" data-award-id='
+					html += '' + '<div class="card" data-useraward-id='
 							+ item.userAwardId + '>'
 							+ '<div class="card-header">' + item.shop.shopName
 							+ '<span class="pull-right">'+status+'</span></div>' + '<div class="card-content">'
@@ -38,19 +38,19 @@ addItems(pageSize,pageNum);
 							+ '</div>' + '</div>' + '</li>' + '</ul>'
 							+ '</div>' + '</div>' + '<div class="card-footer">'
 							+ '<p class="color-gray">'
-							+ new Date(item.createTime).Format("yyyy-MM-dd")
+							+ new Date(item.createTime).Format("yyyy-MM-dd HH:mm:ss")
 							+ '</p>' + '<span>消费积分:' + item.point + '</span>'
 							+ '</div>' + '</div>';
 				});
 				$('.list-div').append(html);
 				var total = $('.list-div .card').length;
-				if (total >= maxItems) {
-					// 加载完毕，则注销无限加载事件，以防不必要的加载
-					$.detachInfiniteScroll($('.infinite-scroll'));
-					// 删除加载提示符
-					$('.infinite-scroll-preloader').remove();
-					return;
-				}
+                if (total >= maxItems) {
+                    // 加载完毕，则注销无限加载事件，以防不必要的加载
+                    $.detachInfiniteScroll($('.infinite-scroll'));
+                    // 删除加载提示符
+                    $('.infinite-scroll-preloader').remove();
+                    return;
+                }
 				pageNum += 1;
 				loading = false;
 				$.refreshScroller();
@@ -60,8 +60,8 @@ addItems(pageSize,pageNum);
 //绑定卡片点击事件，若点击卡片，则进入奖品领取的详情页
 	//顾客凭详情页里的二维码到实体店给店员扫描领取实物奖品
 	$('.list-div').on('click','.card',function (e) {
-		var userAwardId=e.currentTarget.dataset.userAwardId;
-		window.location.href='/o2o/frontend/myawarddetail?userAwardId='+userAwardId;
+		var userAwardId=e.currentTarget.dataset.userawardId;
+		window.location.href='/o2o/frontend/awarddetail?userAwardId='+userAwardId;
 
     });
 

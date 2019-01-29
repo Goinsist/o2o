@@ -1,19 +1,15 @@
 package com.imooc.o2o.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ShortNetAddress {
 	private static Logger log = LoggerFactory.getLogger(ShortNetAddress.class);
@@ -21,61 +17,8 @@ public class ShortNetAddress {
 	public static int TIMEOUT = 30 * 1000;
 	public static String ENCODING = "UTF-8";
 
-	/**
-	 * JSON 依据传入的key获取value
-	 * 
-	 * @param replyText
-	 * @param key
-	 * @return
-	 */
-	private static String getValueByKey_JSON(String replyText, String key) {
-		ObjectMapper mapper = new ObjectMapper();
-		//定义json结点
-		JsonNode node;
-		String tinyUrl = null;
-		try {
-			//把调用返回的消息串转换成json对象
-			node = mapper.readTree(replyText);
-			//依据key从json对象里获取对应的值
-			tinyUrl = node.get(key).asText();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			log.error("getValueByKey_JSON error:" + e.toString());
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			log.error("getValueByKey_JSON error:" + e.toString());
-		}
 
-		return tinyUrl;
-	}
 
-	/**
-	 * 通过HttpConnection 获取返回的字符串
-	 * 
-	 * @param connection
-	 * @return
-	 * @throws IOException
-	 */
-	private static String getResponseStr(HttpURLConnection connection)
-			throws IOException {
-		StringBuffer result = new StringBuffer();
-		//从连接中过去http状态码
-		int responseCode = connection.getResponseCode();
-
-		if (responseCode == HttpURLConnection.HTTP_OK) {
-			//如果返回的状态码是ok的，那么取出连接的输入流
-			InputStream in = connection.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					in, ENCODING));
-			String inputLine = "";
-			while ((inputLine = reader.readLine()) != null) {
-				//将消息逐行读入结果中
-				result.append(inputLine);
-			}
-		}
-		return String.valueOf(result);
-	}
 /**
 *
 * 功能描述:
@@ -86,44 +29,56 @@ public class ShortNetAddress {
 */
 	public static String getShortURL(String originURL) {
 		String tinyUrl = null;
-		try {
-			//指定百度短链接的接口
-			URL url = new URL("http://dwz.cn/create.php");
-			//建立连接
-			HttpURLConnection connection = (HttpURLConnection) url
-					.openConnection();
-			// POST Request Define:
-			//设置连接参数
-			//使用连接进行输出
-			connection.setDoOutput(true);
-			//使用连接进行输入
-			connection.setDoInput(true);
-			//不使用缓存
-			connection.setUseCaches(false);
-			//设置连接超时时间为30秒
-			connection.setConnectTimeout(TIMEOUT);
-			//设置请求模式为post
-			connection.setRequestMethod("POST");
-			//设置post信息，这里为传入的原始url
-			String postData = URLEncoder.encode(originURL.toString(), "utf-8");
-			//输出原始的url
-			connection.getOutputStream().write(("url=" + postData).getBytes());
-			//连接百度短链接的接口
-			connection.connect();
-			//获取返回字符串
-			String responseStr = getResponseStr(connection);
-			log.info("response string: " + responseStr);
-			//从字符串里获取tinyurl，即短链接
-			tinyUrl = getValueByKey_JSON(responseStr, "tinyurl");
-			log.info("tinyurl: " + tinyUrl);
-			//关闭连接
-			connection.disconnect();
-		} catch (IOException e) {
-			log.error("getshortURL error:" + e.toString());
-		}
-		return tinyUrl;
+		 String token ="5e4ba3de2cfb3e0d2f7c14bfbaadc280";
+		String params = "{\"url\":\""+ originURL + "\"}";
 
+		BufferedReader reader = null;
+		try {
+			// 创建连接
+			URL url = new URL("https://dwz.cn/admin/v2/create");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setUseCaches(false);
+			connection.setConnectTimeout(TIMEOUT);
+			connection.setInstanceFollowRedirects(true);
+			connection.setRequestMethod("POST"); // 设置请求方式
+			connection.setRequestProperty("Content-Type", "application/json"); // 设置发送数据的格式
+			connection.setRequestProperty("Token", token); // 设置发送数据的格式");
+
+			// 发起请求
+			connection.connect();
+			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8"); // utf-8编码
+			out.append(params);
+			out.flush();
+			out.close();
+
+
+			// 读取响应
+			reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			String line;
+			String res = "";
+			while ((line = reader.readLine()) != null) {
+				res += line;
+			}
+			reader.close();
+
+// 抽取生成短网址
+			BaiduDwz.UrlResponse urlResponse = new Gson().fromJson(res, BaiduDwz.UrlResponse.class);
+			if (urlResponse.getCode() == 0) {
+				return urlResponse.getShortUrl();
+			} else {
+				System.out.println(urlResponse.getErrMsg());
+			}
+
+			return "短链接发送失败"; // TODO：自定义错误信息
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
+		return "发送失败"; // TODO：自定义错误信息
 	}
+
 
 	/**
 	 * ‘ 百度短链接接口 无法处理不知名网站，会安全识别报错
@@ -131,6 +86,8 @@ public class ShortNetAddress {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		getShortURL("https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login");
+		String res = getShortURL("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2c605206217d88b5&redirect_uri=http://115.28.159.6/cityrun/wechatlogin.action&role_type=1&response_type=code&scope=snsapi_userinfo&state=STATE123qweasd#wechat_redirect");
+		System.out.println(res);
+
 	}
 }

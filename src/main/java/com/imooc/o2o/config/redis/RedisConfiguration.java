@@ -27,6 +27,10 @@ public class RedisConfiguration {
     private long maxWaitMillis;
     @Value("${redis.pool.testOnBorrow}")
     private boolean testOnBorrow;
+    @Value("${redis.password}")
+    private String password;
+    @Value(("${redis.pool.timeOut}"))
+    private int timeout;
 
     @Autowired
     private JedisPoolConfig jedisPoolConfig;
@@ -62,7 +66,7 @@ public JedisPoolConfig createJedisPoolConfig() {
      */
     @Bean(name = "jedisWritePool")
 public JedisPoolWriper createJedisPoolWriper(){
-        JedisPoolWriper jedisPoolWriper=new JedisPoolWriper(jedisPoolConfig,hostname,port);
+        JedisPoolWriper jedisPoolWriper=new JedisPoolWriper(jedisPoolConfig,hostname,port,timeout,password);
         return jedisPoolWriper;
 }
 

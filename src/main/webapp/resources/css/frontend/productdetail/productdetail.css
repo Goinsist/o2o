@@ -9,3 +9,14 @@
     margin: 1%;
     overflow: hidden;
 }
+#imgList{
+    text-align: center;
+}
+#award-desc{
+    text-align: center;
+    color: #0894ec;
+}
+#award-point{
+    text-align: center;
+    color: #EE0000;
+} 

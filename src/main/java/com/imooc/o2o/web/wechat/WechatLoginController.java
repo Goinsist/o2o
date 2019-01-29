@@ -59,6 +59,7 @@ public class WechatLoginController {
         WechatUser user=null;
         String openId=null;
         WechatAuth auth=null;
+        PersonInfo personInfo=null;
         if(null!=code){
             UserAccessToken token;
             try {
@@ -80,7 +81,7 @@ public class WechatLoginController {
             }
         }
         if(auth==null){
-            PersonInfo personInfo=WechatUtil.getPersonInfoFromRequest(user);
+             personInfo=WechatUtil.getPersonInfoFromRequest(user);
             auth=new WechatAuth();
             auth.setOpenId(openId);
             if(FRONTEND.equals(roleType)){
@@ -92,11 +93,12 @@ public class WechatLoginController {
             WechatAuthExecution we=wechatAuthService.register(auth);
             if(we.getState()!=WechatAuthStateEnum.SUCCESS.getState()){
                 return null;
-            }else {
-                personInfo=personInfoService.getPersonInfoById(auth.getPersonInfo().getUserId());
-                request.getSession().setAttribute("user",personInfo);
             }
+
+
         }
+        personInfo=personInfoService.getPersonInfoById(auth.getPersonInfo().getUserId());
+        request.getSession().setAttribute("user",personInfo);
         //若用户点击的是前段展示系统按钮进入前端展示系统
         if(FRONTEND.equals(roleType)){
              return "frontend/index";

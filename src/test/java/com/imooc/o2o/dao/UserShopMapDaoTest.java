@@ -3,7 +3,6 @@ package com.imooc.o2o.dao;
 import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.entity.UserShopMap;
-import org.apache.catalina.User;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

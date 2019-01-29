@@ -32,7 +32,7 @@ public class PathUtil {
     public  void setLinuxPath(String linuxPath) {
         PathUtil.linuxPath = linuxPath;
     }
-@Value("${shop.relevant.path}")
+@Value("${shop.relevant.path}/")
     public  void setShopPath(String shopPath) {
         PathUtil.shopPath = shopPath;
     }

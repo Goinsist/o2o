@@ -21,4 +21,6 @@ import java.util.List;
  */
 public interface ShopCategoryDao {
     List<ShopCategory>  queryShopCategory(@Param("shopCategoryCondition") ShopCategory shopCategoryCondition);
+
+   ShopCategory getShopParentCategoryByShopCategoryId(long shopCategoryId);
 }

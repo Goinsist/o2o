@@ -1,0 +1,12 @@
+2019-01-26 00:00:00.031[schedulerFactory_Worker-1]INFO c.i.o2o.service.impl.ProductSellDailyServiceImpl-Quartz Running!
+2019-01-25 10:33:47.915[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 3076 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
+2019-01-25 10:33:47.922[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
+2019-01-25 10:33:55.534[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 8.254 seconds (JVM running for 10.01)
+2019-01-25 11:55:12.779[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 7284 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
+2019-01-25 11:55:12.794[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
+2019-01-25 11:55:18.190[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 6.168 seconds (JVM running for 7.975)
+2019-01-25 11:59:19.635[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 7604 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
+2019-01-25 11:59:19.644[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
+2019-01-25 11:59:25.745[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 6.935 seconds (JVM running for 9.38)
+2019-01-25 12:43:42.544[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 3068 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
+2019-01-25 12:43:42.557[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default

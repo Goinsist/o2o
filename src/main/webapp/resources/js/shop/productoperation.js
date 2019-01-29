@@ -32,7 +32,7 @@ $(function () {
                 $('#point').val(product.point);
                 $('#normal-price').val(product.normalPrice);
                 $('#promotion-price').val(product.promotionPrice);
-                //获取原本的商品类别以及该店铺的所有商品类别
+                //获取原的商品类别以及该店铺的所有商品类别
                 var optionHtml='';
                 var optionArr=data.productCategoryList;
                 var optionSelected=product.productCategory.productCategoryId;
@@ -84,7 +84,9 @@ function getCategory() {
     });
 //提交按钮的事件响应，分别对商品添加和编辑操作做不同响应
     $('#submit').click(
+
         function () {
+            $('#submit').attr('style','display:none;');
             //创建商品的json对象，并从表单里获取对应的属性值
             var product={};
             product.productName=$('#product-name').val();

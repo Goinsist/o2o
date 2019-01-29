@@ -7,16 +7,18 @@ import com.imooc.o2o.exceptions.UserAwardMapOperationException;
 public interface UserAwardMapService {
 
     /**
-    *
-    * 功能描述:
-    * 根据传入的查询条件分页获取映射列表及总数
-     * @return 
-    * @author gongyu
-    * @date 2019/1/4 0004 10:16
-    */
-    UserAwardMapExecution listUserAwardMap(UserAwardMap userAwardMapCondition,Integer pageIndex,Integer pageSize);
+     * 功能描述:
+     * 根据传入的查询条件分页获取映射列表及总数
+     *
+     * @return
+     * @author gongyu
+     * @date 2019/1/4 0004 10:16
+     */
+    default UserAwardMapExecution listUserAwardMap(UserAwardMap userAwardMapCondition, Integer pageIndex, Integer pageSize) {
+        return null;
+    }
 
-/**
+    /**
 *
 * 功能描述:
 * 根据传入的id获取映射信息

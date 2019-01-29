@@ -1,6 +1,6 @@
 $(function () {
     //从地址栏中获取userAwardId
-    var userAwardId=getQueryString('UserAwardId');
+    var userAwardId=getQueryString('userAwardId');
     //根据userAwardid获取用户奖品映射信息
     var awardUrl='/o2o/frontend/getawardbyuserawardid?userAwardId='+userAwardId;
     

@@ -79,7 +79,7 @@ public class ShopAdminController {
     @RequestMapping(value = "/operationsuccess",method = RequestMethod.GET)
     public String operationSuccess(){
         //转发至操作成功页面页面
-        return "shop/operationSuccess";
+        return "/WEB-INF/html/shop/operationsuccess.html";
     }
     @RequestMapping(value = "/productbuycheck",method = RequestMethod.GET)
     public String productBuyCheck(){

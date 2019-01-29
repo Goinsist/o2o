@@ -21,7 +21,7 @@ public class UserShopMapServiceImpl implements UserShopMapService {
             //页转行
             int beginIndex=PageCalculate.calculateRowIndex(pageIndex,pageSize);
             //根据传入的查询条件分页返回用户积分列表信息
-            List<UserShopMap> userShopMapList=userShopMapDao.queryUserShopMapList(userShopMapCondition,pageIndex,pageSize);
+            List<UserShopMap> userShopMapList=userShopMapDao.queryUserShopMapList(userShopMapCondition,beginIndex,pageSize);
             //返回总数
             int count=userShopMapDao.queryUserShopMapCount(userShopMapCondition);
             UserShopMapExecution ue=new UserShopMapExecution();

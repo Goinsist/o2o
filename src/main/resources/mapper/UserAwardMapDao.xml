@@ -68,7 +68,7 @@
             <!--按顾客信息精确查询-->
             <if
                 test="userAwardCondition.user!=null and userAwardCondition.user.userId!=null">
-                and uam.user_id=#{userAwardCondition.userId}
+                and uam.user_id=#{userAwardCondition.user.userId}
             </if>
             <!-- 按某个店铺精确查询-->
             <if
@@ -119,7 +119,7 @@
             <!--按顾客信息精确查询-->
             <if
                     test="userAwardCondition.user!=null and userAwardCondition.user.userId!=null">
-                and uam.user_id=#{userAwardCondition.userId}
+                and uam.user_id=#{userAwardCondition.user.userId}
             </if>
             <!-- 按某个店铺精确查询-->
             <if

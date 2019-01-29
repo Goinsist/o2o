@@ -77,7 +77,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
      * 创建viewResolver
      * @return
      */
-    @Bean(name = "viewResover")
+    @Bean(name = "viewResolver")
     public ViewResolver createViewResolver(){
         InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
         //设置Spring容器
@@ -92,6 +92,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
 
 
     }
+
 
     /**
      * 文件上传解析器
@@ -136,13 +137,19 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String interceptPath="/shopadmin/**";
+        String interceptPath1="/local/changepsw";
+        String interceptPath2="/frontend/myrecord";
         //注册拦截器
         InterceptorRegistration loginIR=registry.addInterceptor(new ShopLoginInterceptor());
         //配置拦截器的路径
-
+        loginIR.addPathPatterns(interceptPath1);
         loginIR.addPathPatterns(interceptPath);
+        loginIR.addPathPatterns(interceptPath2);
         /**shopauthmanagement page**/
         loginIR.excludePathPatterns("/shopadmin/addshopauthmap");
+
+
+        loginIR.excludePathPatterns("/shopadmin/getproductbyid");
         //还可以注册其他的拦截器
         InterceptorRegistration permissionIR=registry.addInterceptor(new ShopPermissionInterceptor());
         //配置拦截路径
@@ -159,6 +166,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
         permissionIR.excludePathPatterns("/shopadmin/getshopmanagementinfo");
         /**shopauthmanagement page**/
         permissionIR.excludePathPatterns("/shopadmin/addshopauthmap");
+        permissionIR.excludePathPatterns("/shopadmin/getproductbyid");
+        permissionIR.excludePathPatterns("/shopadmin/adduserproductmap");
+        permissionIR.excludePathPatterns("/shopadmin/getuserproductbyid");
+        permissionIR.excludePathPatterns("/shopadmin/getawardbyid");
+        permissionIR.excludePathPatterns("/shopadmin/exchangeaward");
+        permissionIR.excludePathPatterns("/shopadmin/addaward");
 
     }
 }

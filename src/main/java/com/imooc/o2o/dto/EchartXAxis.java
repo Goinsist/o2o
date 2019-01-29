@@ -1,6 +1,6 @@
 package com.imooc.o2o.dto;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
 *
@@ -13,17 +13,18 @@ import java.util.HashSet;
 public class EchartXAxis {
 private String type="category";
 //为了去重
-    private HashSet<String> data;
+    private TreeSet<String> data;
 
-    public HashSet<String> getData() {
+    public TreeSet<String> getData() {
         return data;
     }
 
-    public void setData(HashSet<String> data) {
+    public void setData(TreeSet<String> data) {
         this.data = data;
     }
 
     public String getType() {
         return type;
     }
+
 }

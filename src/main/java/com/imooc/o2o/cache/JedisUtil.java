@@ -42,17 +42,13 @@ public class JedisUtil {
 
     private JedisPool jedisPool;
 
-    public JedisPool getJedisPool() {
-        return jedisPool;
-    }
+
 
     public void setJedisPool(JedisPoolWriper jedisPoolWriper) {
         this.jedisPool = jedisPoolWriper.getJedisPool();
     }
 
-    public JedisPool getPool() {
-        return jedisPool;
-    }
+
 
     /**
      * 从jedis连接池中获取获取jedis对象
@@ -653,6 +649,7 @@ public Hash(){}
         public List<byte[]> hmget(byte[] key, byte[]... fieids) {
             // ShardedJedis sjedis = getShardedJedis();
             Jedis sjedis = getJedis();
+
             List<byte[]> list = sjedis.hmget(key, fieids);
             sjedis.close();
             return list;
@@ -1027,6 +1024,7 @@ public Hash(){}
          * */
         public long rpush(String key, String value) {
             Jedis jedis = getJedis();
+            jedis.auth("911013");
             long count = jedis.rpush(key, value);
             jedis.close();
             return count;

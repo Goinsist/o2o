@@ -2,12 +2,9 @@ package com.imooc.o2o.web.shopadmin;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.imooc.o2o.dto.ShopAuthMapExecution;
 import com.imooc.o2o.dto.UserAccessToken;
 import com.imooc.o2o.dto.WechatInfo;
-
 import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.entity.ShopAuthMap;
@@ -18,9 +15,8 @@ import com.imooc.o2o.service.ShopAuthMapService;
 import com.imooc.o2o.service.WechatAuthService;
 import com.imooc.o2o.util.CodeUtil;
 import com.imooc.o2o.util.HttpServletRequestUtil;
-import com.imooc.o2o.util.ShortNetAddress;
+import com.imooc.o2o.util.MatrixToImage;
 import com.imooc.o2o.util.wechat.WechatUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,18 +135,7 @@ private void generateQRCode4ShopAuth(HttpServletRequest request, HttpServletResp
         //将店铺id和timestamp传入content，赋值到state中，这样微信获取到这新信息后会会传到授权信息的添加方法里
         //加上aaa是为了一会在添加信息的方法里替换这些信息使用
         String content="{aaashopIdaaa:"+shop.getShopId()+",aaacreateTimeaaa:"+timpstamp+"}";
-        try{
-            //将content的信息先进性base64编码以避免特殊字符造成的干扰，之后拼接目标URL
-            String longUrl=urlPrefix+authUrl+urlMiddle+URLEncoder.encode(content,"UTF-8")+urlSuffix;
-            //将目标URL转化成短的URL
-            String shortUrl=ShortNetAddress.getShortURL(longUrl);
-            //调用二维码生成的工具类方法,传入短的URL，生成二维码
-            BitMatrix qRcodeImg=CodeUtil.generateQRcodeStream(shortUrl,response);
-            //将二维码以图片流的形式输出到前端
-            MatrixToImageWriter.writeToStream(qRcodeImg,"png",response.getOutputStream());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        MatrixToImage.QRCodetoImage(urlPrefix,urlMiddle,content,urlSuffix,authUrl,response);
     }
 }
 

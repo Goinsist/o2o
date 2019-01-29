@@ -30,7 +30,7 @@ public class MyShopPointController {
 * @author gongyu
 * @date 2019/1/5 0005 13:53
 */
-@RequestMapping(value = "/listusersshopmapsbycustomer",method = RequestMethod.GET)
+@RequestMapping(value = "/listusershopmapsbycustomer",method = RequestMethod.GET)
 @ResponseBody
     private Map<String,Object> listUserShopMapsByCustomer(HttpServletRequest request){
 Map<String,Object> modelMap=new HashMap<String, Object>();
@@ -52,8 +52,10 @@ Map<String,Object> modelMap=new HashMap<String, Object>();
         }
         //根据查询条件获取顾客的各店铺积分情况
         UserShopMapExecution ue=userShopMapService.listUserShopMap(userShopMapCondition,pageIndex,pageSize);
+        modelMap.put("success",true);
         modelMap.put("userShopMapList",ue.getUserShopMapList());
         modelMap.put("count",ue.getCount());
+
 
     }else {
         modelMap.put("success",false);

@@ -3,7 +3,7 @@ $(function () {
     var loginUrl='/o2o/local/logincheck';
     //从地址栏的URL里获取usertype
     //usertype=1则为customer，其余为shopowner
-    var usertpye=getQueryString('usertype');
+    var usertype=getQueryString('usertype');
     //登录次数，累计登录三次失败之后自动弹出验证码要求输入
     var loginCount=0;
 
@@ -43,7 +43,7 @@ $(function () {
             success:function (data) {
                 if(data.success){
                     $.toast("登录成功！");
-                    if(usertpye==1){
+                    if(usertype==1){
                         //若用户在前端展示系统页面则自动连接到前端展示系统首页
                         window.location.href='/o2o/frontend/index';
 

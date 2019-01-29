@@ -11,7 +11,7 @@ $(function() {
     var shopId=getQueryString('shopId');
     var awardName='';
     var canProceed=false;
-    var totalPoint=0
+    var totalPoint=0;
     //预先加载20条
     addItems(pageSize,pageNum);
 //按照查询条件获取奖品列表毛病生出对应的html元素添加到页面中
@@ -27,7 +27,7 @@ $(function() {
                 var html = '';
                 data.awardList.map(function(item, index) {
                     html += '' + '<div class="card" data-award-id='
-                        + item.awardId + ' "data-point="'+item.point+'">'
+                        + item.awardId +'  data-point='+item.point+'>'
                         + '<div class="card-header">' + item.awardName
                         + '<span class="pull-right">需要积分'+item.point+'</span></div>' + '<div class="card-content">'
                         + '<div class="list-block media-list">' + '<ul>'
@@ -49,7 +49,7 @@ $(function() {
                 $('.list-div').append(html);
                 if(data.totalPoint!=undefined){
                     //若用户在该店铺又积分，则显示
-                    canProceed=truel
+                    canProceed=true;
                     $("#title").text('当前积分'+data.totalPoint);
                     totalPoint=data.totalPoint;
                 }
@@ -77,7 +77,7 @@ $(function() {
         addItems(pageSize, pageNum);
     });
 $('.award-list').on('click','.card',function (e) {
-    //若用户在该店铺有积分并且几分熟大于该奖品需要小号的积分
+    //若用户在该店铺有积分并且几分且大于该奖品需要小号的积分
     if(canProceed&&(totalPoint>e.currentTarget.dataset.point)){
         //则弹出操作确认框
         $.confirm('需要消耗'+e.currentTarget.dataset.point+'积分,确定操作么',

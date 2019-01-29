@@ -101,4 +101,11 @@ jedisStrings.set(key,jsonString);
         }
         return shopCategoryList;
     }
+
+    @Override
+    public ShopCategory getShopParentCategoryByShopCategoryId(long shopCategoryId) {
+
+
+        return shopCategoryDao.getShopParentCategoryByShopCategoryId(shopCategoryId);
+    }
 }

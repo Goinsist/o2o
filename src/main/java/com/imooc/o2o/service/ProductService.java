@@ -3,6 +3,7 @@ package com.imooc.o2o.service;
 import com.imooc.o2o.dto.ImageHolder;
 import com.imooc.o2o.dto.ProductExecution;
 import com.imooc.o2o.entity.Product;
+import com.imooc.o2o.entity.ProductImg;
 import com.imooc.o2o.exceptions.ProductOperationException;
 
 import java.util.List;
@@ -32,6 +33,16 @@ public interface ProductService {
      * @return
      */
     Product getProductById(long productId);
+
+    /**
+    *
+    * 功能描述:
+    * 查询该商品下的所有图片信息
+     * @return
+    * @author gongyu
+    * @date 2019/1/18 0018 23:50
+    */
+    List<ProductImg> queryProductImgList(long productId);
 
     /**
      * 修改商品信息以及图片处理

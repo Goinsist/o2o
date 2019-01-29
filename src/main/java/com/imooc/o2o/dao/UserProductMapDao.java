@@ -27,4 +27,6 @@ public interface UserProductMapDao {
      * @return
      */
     int insertUserProductMap(UserProductMap userProductMap);
+
+    UserProductMap queryByProductId(long productId);
 }

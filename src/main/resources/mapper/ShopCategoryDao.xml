@@ -32,5 +32,13 @@
         priority DESC
 
     </select>
+    
+    <select id="getShopParentCategoryByShopCategoryId" resultType="com.imooc.o2o.entity.ShopCategory">
+     select shop_category_id from tb_shop_category where shop_category_id=(select parent_id from tb_shop_category where shop_category_id=#{shopCategoryId})
+
+
+
+
+    </select>
 </mapper>
 

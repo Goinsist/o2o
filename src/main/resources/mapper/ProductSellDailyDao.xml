@@ -30,10 +30,11 @@
     psd.product_sell_daily_id,
     psd.create_time,
     s.shop_id,
-    s.shop_id,
+
     s.shop_name,
     p.product_id,
-    p.product_name
+    p.product_name,
+    psd.total
     FROM
     tb_product_sell_daily psd,
     tb_shop s,
@@ -76,7 +77,7 @@ order by psd.product_id,psd.create_time
     INTO
     tb_product_sell_daily(product_id,shop_id,create_time,total)
     (SELECT
-    product_id,shop_id,date_format(create_time,'%Y-%m-%d'),count(product_id) AS total FROM
+    product_id,any_value(shop_id),any_value(date_format(create_time,'%Y-%m-%d')),any_value(count(product_id)) AS total FROM
     tb_user_product_map
     WHERE date_format(create_time,'%Y-%m-%d')=
     date_sub(curdate(),interval 1 day)GROUP BY product_id

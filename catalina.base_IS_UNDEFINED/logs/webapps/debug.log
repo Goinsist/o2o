@@ -1,18 +1,43 @@
-2019-01-03 10:49:24.076[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 10:51:31.198[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-02 23:59:09.702[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 00:00:00.048[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily (SELECT product_id,shop_id,create_time,count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
-2019-01-03 00:00:00.067[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
-2019-01-03 00:00:00.827[schedulerFactory_Worker-1]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-<==    Updates: 2
-2019-01-03 14:09:19.033[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 14:10:07.944[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 14:10:19.286[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily (SELECT product_id,shop_id,date_format(create_time,'%Y-%m-%d'),count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
-2019-01-03 14:10:19.325[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
-2019-01-03 14:16:05.397[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 14:16:17.276[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==>  Preparing: INSERT INTO tb_product_sell_daily(product_id,shop_id,create_time,total) (SELECT product_id,shop_id,date_format(create_time,'%Y-%m-%d'),count(product_id) AS total FROM tb_user_product_map WHERE date_format(create_time,'%Y-%m-%d')= date_sub(curdate(),interval 1 day)GROUP BY product_id ) 
-2019-01-03 14:16:17.318[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-==> Parameters: 
-2019-01-03 14:16:18.240[main]DEBUGc.i.o.d.ProductSellDailyDao.insertProductSellDaily-<==    Updates: 2
-2019-01-03 14:16:34.950[main]DEBUGcom.imooc.o2o.dao.ProductSellDailyDaoTest-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
-2019-01-03 14:16:47.320[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-==>  Preparing: insert into tb_product_sell_daily(product_id,shop_id,create_time,total) (select p.product_id,p.shop_id,date_sub(curdate(),interval 1 day),0 AS total FROM tb_product p WHERE p.product_id not in (select product_id from tb_product_sell_daily where date_format(create_time,'%Y-%m-%d') =date_sub(curdate(),interval 1 day)) ) 
-2019-01-03 14:16:47.363[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-==> Parameters: 
-2019-01-03 14:16:49.188[main]DEBUGc.i.o.d.P.insertDefaultProductSellDaily-<==    Updates: 1
+2019-01-26 09:22:51.849[main]DEBUGcom.imooc.o2o.O2oApplication-Running with Spring Boot v2.0.5.RELEASE, Spring v5.0.9.RELEASE
+2019-01-26 09:23:13.314[http-nio-8080-exec-9]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-==>  Preparing: SELECT l.local_auth_id, l.username, l.password, l.create_time, l.last_edit_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_local_auth l LEFT JOIN tb_person_info p ON l.user_id = p.user_id WHERE l.username = ? AND l.password = ? 
+2019-01-26 09:23:13.338[http-nio-8080-exec-9]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-==> Parameters: gongyuhaha(String), q69e66ys5y52ye0e6q0es96b5s55s9bs(String)
+2019-01-26 09:23:13.405[http-nio-8080-exec-9]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-<==      Total: 1
+2019-01-26 09:23:19.146[http-nio-8080-exec-8]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-==>  Preparing: SELECT l.local_auth_id, l.username, l.password, l.create_time, l.last_edit_time, p.user_id, p.name, p.gender, p.email, p.profile_img, p.user_type, p.create_time, p.last_edit_time, p.enable_status FROM tb_local_auth l LEFT JOIN tb_person_info p ON l.user_id = p.user_id WHERE l.username = ? AND l.password = ? 
+2019-01-26 09:23:19.147[http-nio-8080-exec-8]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-==> Parameters: gongyuhaha(String), q69e66ys5y52ye0e6q0es96b5s55s9bs(String)
+2019-01-26 09:23:19.206[http-nio-8080-exec-8]DEBUGc.i.o.dao.LocalAuthDao.queryLocalByUserNameAndPwd-<==      Total: 1
+2019-01-26 09:23:23.083[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name FROM tb_shop s, tb_area a, tb_shop_category sc WHERE s.owner_id=? AND s.area_id=a.area_id AND s.shop_category_id=sc.shop_category_id ORDER BY s.priority DESC LIMIT ?,?; 
+2019-01-26 09:23:23.084[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-==> Parameters: 3(Long), 0(Integer), 100(Integer)
+2019-01-26 09:23:23.146[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-<==      Total: 5
+2019-01-26 09:23:23.148[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-==>  Preparing: SELECT count(1) From tb_shop s, tb_area a, tb_shop_category sc WHERE s.owner_id=? AND s.area_id=a.area_id AND s.shop_category_id=sc.shop_category_id 
+2019-01-26 09:23:23.149[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-==> Parameters: 3(Long)
+2019-01-26 09:23:23.202[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-<==      Total: 1
+2019-01-26 09:23:37.912[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name FROM tb_shop s, tb_area a, tb_shop_category sc WHERE s.shop_Category_id in(select shop_category_id from tb_shop_category WHERE parent_id=?) and s.enable_status=? AND s.area_id=a.area_id AND s.shop_category_id=sc.shop_category_id ORDER BY s.priority DESC LIMIT ?,?; 
+2019-01-26 09:23:37.913[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-==> Parameters: 10(Long), 1(Integer), 0(Integer), 3(Integer)
+2019-01-26 09:23:37.969[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopList-<==      Total: 1
+2019-01-26 09:23:37.971[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-==>  Preparing: SELECT count(1) From tb_shop s, tb_area a, tb_shop_category sc WHERE s.shop_category_id in(select shop_category_id from tb_shop_category WHERE parent_id= ?) and s.enable_status=? AND s.area_id=a.area_id AND s.shop_category_id=sc.shop_category_id 
+2019-01-26 09:23:37.972[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-==> Parameters: 10(Long), 1(Integer)
+2019-01-26 09:23:38.053[http-nio-8080-exec-6]DEBUGcom.imooc.o2o.dao.ShopDao.queryShopCount-<==      Total: 1
+2019-01-26 09:23:39.128[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryByShopId-==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, sc.shop_category_id, sc.shop_category_name FROM tb_shop s, tb_area a, tb_shop_category sc WHERE s.area_id=a.area_id AND s.shop_category_id=sc.shop_category_id AND s.shop_id=? 
+2019-01-26 09:23:39.128[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryByShopId-==> Parameters: 15(Long)
+2019-01-26 09:23:39.139[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-==>  Preparing: SELECT product_id, product_name, product_desc, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, point, product_category_id, shop_id FROM tb_product WHERE shop_id = ? and enable_status = ? ORDER BY priority DESC LIMIT ?,?; 
+2019-01-26 09:23:39.140[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-==> Parameters: 15(Long), 1(Integer), 0(Integer), 10(Integer)
+2019-01-26 09:23:39.213[http-nio-8080-exec-5]DEBUGcom.imooc.o2o.dao.ShopDao.queryByShopId-<==      Total: 1
+2019-01-26 09:23:39.214[http-nio-8080-exec-5]DEBUGc.i.o.dao.ProductCategoryDao.queryProductCategory-==>  Preparing: SELECT product_category_name, priority, product_category_id, create_time, shop_id FROM tb_product_category WHERE shop_id=? ORDER BY priority DESC 
+2019-01-26 09:23:39.214[http-nio-8080-exec-5]DEBUGc.i.o.dao.ProductCategoryDao.queryProductCategory-==> Parameters: 15(Long)
+2019-01-26 09:23:39.215[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-<==      Total: 2
+2019-01-26 09:23:39.217[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-==>  Preparing: SELECT count(1) FROM tb_product WHERE shop_id = ? and enable_status = ? 
+2019-01-26 09:23:39.218[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-==> Parameters: 15(Long), 1(Integer)
+2019-01-26 09:23:39.272[http-nio-8080-exec-2]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-<==      Total: 1
+2019-01-26 09:23:39.274[http-nio-8080-exec-5]DEBUGc.i.o.dao.ProductCategoryDao.queryProductCategory-<==      Total: 2
+2019-01-26 09:23:39.622[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-==>  Preparing: SELECT product_id, product_name, product_desc, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, point, product_category_id, shop_id FROM tb_product WHERE shop_id = ? and enable_status = ? ORDER BY priority DESC LIMIT ?,?; 
+2019-01-26 09:23:39.623[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-==> Parameters: 15(Long), 1(Integer), 10(Integer), 10(Integer)
+2019-01-26 09:23:39.682[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductList-<==      Total: 0
+2019-01-26 09:23:39.683[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-==>  Preparing: SELECT count(1) FROM tb_product WHERE shop_id = ? and enable_status = ? 
+2019-01-26 09:23:39.683[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-==> Parameters: 15(Long), 1(Integer)
+2019-01-26 09:23:39.749[http-nio-8080-exec-4]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductCount-<==      Total: 1
+2019-01-26 09:23:40.552[http-nio-8080-exec-9]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductById-==>  Preparing: SELECT p.product_id, p.product_name, p.product_desc, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.point, p.product_category_id, p.shop_id, pm.product_img_id, pm.img_addr, pm.img_desc, pm.priority, pm.create_time FROM tb_product p LEFT JOIN tb_product_img pm ON p.product_id = pm.product_id WHERE p.product_id = ? ORDER BY pm.priority DESC 
+2019-01-26 09:23:40.552[http-nio-8080-exec-9]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductById-==> Parameters: 1(Long)
+2019-01-26 09:23:40.616[http-nio-8080-exec-9]DEBUGcom.imooc.o2o.dao.ProductDao.queryProductById-<==      Total: 5
+2019-01-26 09:23:40.617[http-nio-8080-exec-9]DEBUGc.imooc.o2o.dao.ProductImgDao.queryProductImgList-==>  Preparing: SELECT product_img_id, img_addr, img_desc, priority, create_time, product_id FROM tb_product_img WHERE product_id=? ORDER BY product_img_id ASC 
+2019-01-26 09:23:40.618[http-nio-8080-exec-9]DEBUGc.imooc.o2o.dao.ProductImgDao.queryProductImgList-==> Parameters: 1(Long)
+2019-01-26 09:23:40.676[http-nio-8080-exec-9]DEBUGc.imooc.o2o.dao.ProductImgDao.queryProductImgList-<==      Total: 5

@@ -87,6 +87,7 @@ LIMIT
 
 
     </select>
+
     <insert id="insertShopAuthMap">
         INSERT INTO
         tb_shop_auth_map(employee_id,shop_id,title,title_flag,create_time,last_edit_time,enable_status)

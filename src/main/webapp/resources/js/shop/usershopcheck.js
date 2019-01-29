@@ -13,7 +13,7 @@ getList();
                 userShopMapList.map(function (item, index) {
                     tempHtml += ''
                          +      '<div class="row row-usershopcheck">'
-                         +          '<div class="col-50">'+ item.userName +'</div>'
+                         +          '<div class="col-50">'+ item.user.name +'</div>'
                          +          '<div class="col-50">'+ item.point +'</div>'
                          +      '</div>';
                 });

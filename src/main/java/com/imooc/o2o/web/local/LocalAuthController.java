@@ -102,8 +102,10 @@ public class LocalAuthController {
     String username=HttpServletRequestUtil.getString(request,"userName");
     //获取原密码
     String password=HttpServletRequestUtil.getString(request,"password");
+
     //获取新密码
     String newPassword=HttpServletRequestUtil.getString(request,"newPassword");
+
     //从session中获取当前用户信息（用户一旦通过微信登录之后，便能获取到用户的信息）
         PersonInfo user=(PersonInfo)request.getSession().getAttribute("user");
         //非空判断，要求账号新旧密码以及当前的用户session非空，且新旧密码不同

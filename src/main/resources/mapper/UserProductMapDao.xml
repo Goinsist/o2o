@@ -9,7 +9,7 @@
     <result column="point" property="point"/>
     <association property="user" column="user_id"
                  javaType="com.imooc.o2o.entity.PersonInfo">
-        <id column="user_id" property="productId"/>
+        <id column="user_id" property="userId"/>
         <result column="name" property="name"/>
     </association>
     <association property="product" column="product_id"
@@ -38,6 +38,14 @@
 </resultMap>
 
 
+
+    <select id="queryByProductId" resultMap="userProductResultMap">
+
+        select DISTINCT point from tb_user_product_map WHERE product_id=#{productId}
+
+
+
+    </select>
 
     <select id="queryUserProductMapList" resultMap="userProductResultMap">
   SELECT
@@ -72,17 +80,17 @@ and upm.user_id=#{userProductCondition.user.userId}
 
       </if>
       <!--按店铺信息精确查询-->
-     <if test="userProductCondition.shop!=null and userporductCondition.shop.shopId!=null">
+     <if test="userProductCondition.shop!=null and userProductCondition.shop.shopId!=null">
          and upm.shop_id=#{userProductCondition.shop.shopId}
      </if>
       <!--按顾客名字模糊查询-->
       <if test="userProductCondition.user!=null and userProductCondition.user.name!=null">
-          and buyer.name like '%${userProductCondition.user.name}%'
+          and buyer.name like CONCAT('%',#{userProductCondition.user.name},'%')
 
       </if>
       <!--按商品名字模糊查询-->
       <if test="userProductCondition.product!=null and userProductCondition.product.productName!=null">
-          and p.product_name like '%${userProductCondition.product.productName}%'
+          and p.product_name like CONCAT('%',#{userProductCondition.product.productName},'%')
 
 
       </if>
@@ -122,7 +130,7 @@ and upm.user_id=#{userProductCondition.user.userId}
 
       </if>
       <!--按店铺信息精确查询-->
-      <if test="userProductCondition.shop!=null and userporductCondition.shop.shopId!=null">
+      <if test="userProductCondition.shop!=null and userProductCondition.shop.shopId!=null">
           and upm.shop_id=#{userProductCondition.shop.shopId}
       </if>
       <!--按顾客名字模糊查询-->

@@ -2,7 +2,7 @@ $(function() {
 	//从URL里获取awardId参数的值
 	var awardId = getQueryString('awardId');
 	//通过awardId获取奖品信息的URL
-	var infoUrl = '/o2o/shop/getawardbyid?awardId=' + awardId;
+	var infoUrl = '/o2o/shopadmin/getawardbyid?awardId=' + awardId;
    //更新奖品信息的URL
 	var awardPostUrl = '/o2o/shopadmin/modifyaward';
 	//由于奖品添加和编辑使用的是同一个页面
@@ -17,7 +17,7 @@ $(function() {
 	}
 
 	$("#pass-date").calendar({
-	    value: ['2017-12-31']
+	    value: ['2019-1-23']
 	});
 //获取需要编辑的奖品信息，并赋值给表单
 	function getInfo(id) {
@@ -29,6 +29,7 @@ $(function() {
 				$('#priority').val(award.priority);
 				$('#award-desc').val(award.awardDesc);
 				$('#point').val(award.point);
+				$('#pass-date').val(new Date(award.createTime).Format("yyyy-MM-dd"));
 			}
 		});
 	}

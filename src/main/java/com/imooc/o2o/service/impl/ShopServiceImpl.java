@@ -60,7 +60,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
 @Transactional
-    public ShopExceution addShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException {
+    public ShopExceution addShop(Shop shop,ImageHolder thumbnail) throws ShopOperationException {
 //     空值判断，判断shop是不是包含必须的值
 
         if (shop == null) {
@@ -71,6 +71,7 @@ public class ShopServiceImpl implements ShopService {
                 shop.setEnableStatus(ShopStateEnum.CHECK.getState());
                 shop.setCreateTime(new Date());
                 shop.setLastEditTime(new Date());
+
                 int effectedNum;
                 //添加店铺信息
 try {
@@ -136,7 +137,7 @@ try {
         } else {
 // 1.判断是否需要处理图片
             try {
-                if (thumbnail.getImage() != null && thumbnail.getImageName()!= null && !"".equals(thumbnail.getImageName())) {
+                if (thumbnail!=null&&thumbnail.getImage() != null && thumbnail.getImageName()!= null && !"".equals(thumbnail.getImageName())) {
                     Shop tempShop = shopDao.queryByShopId(shop.getShopId());
                     if (tempShop.getShopImg() != null) {
                         ImageUtil.deleteFileOrPath(tempShop.getShopImg());

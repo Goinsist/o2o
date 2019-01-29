@@ -12,13 +12,13 @@ import com.imooc.o2o.service.WechatAuthService;
 import com.imooc.o2o.util.CodeUtil;
 import com.imooc.o2o.util.HttpServletRequestUtil;
 import com.imooc.o2o.util.wechat.WechatUtil;
-import com.sun.media.sound.MidiOutDeviceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +47,7 @@ public class UserAwardManagementController {
 //通过userId获取店员信息
         PersonInfo operator=personInfoService.getPersonInfoById(auth.getPersonInfo().getUserId());
         //设置上用户的session
-        request.getSession().setAttribute("user",operator);
+
         //解析微信回传过来的自定义参数state，由于之前进行了编码，这里需要解码一下
         String qrCodeinfo=new String(URLDecoder.decode(HttpServletRequestUtil.getString(request,"state"),"UTF-8"));
         ObjectMapper mapper=new ObjectMapper();
@@ -77,7 +77,8 @@ public class UserAwardManagementController {
                 //修改奖品的领取状态
                 UserAwardMapExecution se=userAwardMapService.modifyUserAwardMap(userAwardMap);
                 if(se.getState()==UserAwardMapStateEnum.SUCCESS.getState()){
-                    return "shop/operationsuccess";
+                    request.getSession().setAttribute("userAwardId",userAwardId);
+                    return "shop/awardsuccess";
                 }
             }catch (RuntimeException e){
                 return "shop/operationfail";
@@ -100,8 +101,9 @@ public class UserAwardManagementController {
     private UserAwardMap compactUserAwardMap4Exchange(long customerId,long userAwardId, PersonInfo operator) {
         UserAwardMap userAwardMap = new UserAwardMap();
    userAwardMap.setUserAwardId(userAwardId);
-               userAwardMap.setUsedStatus(userAwardMapService.getUserAwardMapById(userAwardId).getUsedStatus());
+               userAwardMap.setUsedStatus(1);
                  userAwardMap.setUser(personInfoService.getPersonInfoById(customerId));
+
         return userAwardMap;
     }
     /**
@@ -113,7 +115,7 @@ public class UserAwardManagementController {
      * @date 2019/1/1 0001 15:59
      */
     private boolean checkQRCodeInfo(WechatInfo wechatInfo){
-        if(wechatInfo!=null&&wechatInfo.getShopId()!=null&&wechatInfo.getCreateTime()>0){
+        if(wechatInfo!=null&&wechatInfo.getUserAwardId()!=null&&wechatInfo.getCustomerId()!=null&&wechatInfo.getCreateTime()>0){
             long nowTime=System.currentTimeMillis();
             if((nowTime-wechatInfo.getCreateTime()<=600000)){
                 return true;
@@ -126,6 +128,8 @@ public class UserAwardManagementController {
 
 
     }
+
+
     /**
     *
     * 功能描述:
@@ -140,16 +144,45 @@ public class UserAwardManagementController {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         //从request里边获取前端传递过来的awardId
         long awardId = HttpServletRequestUtil.getLong(request, "awardId");
+        long userAwardId;
+        if(request.getSession().getAttribute("userAwardId")!=null){
+            userAwardId= (long) request.getSession().getAttribute("userAwardId");
+        }else {
+            userAwardId=HttpServletRequestUtil.getLong(request,"userAwardId");
+        }
+
         //空值判断
         if (awardId > -1) {
             //根据传入的id获取奖品信息并返回
             Award award = awardService.getAwardById(awardId);
-            modelMap.put("award", award);
+
+            modelMap.put("awardName", award.getAwardName());
+            modelMap.put("createTime",award.getCreateTime());
+            modelMap.put("awardDesc",award.getAwardDesc());
+            modelMap.put("point",award.getPoint());
+            modelMap.put("awardImg",award.getAwardImg());
+            modelMap.put("needQRCode",false);
             modelMap.put("success", true);
 
-        }else{
-            modelMap.put("success",false);
-            modelMap.put("errMsg","empty awardId");
+   return modelMap;
+        }
+        if(userAwardId>-1){
+           UserAwardMap userAwardMap= userAwardMapService.getUserAwardMapById(userAwardId);
+         Award award= awardService.getAwardById(userAwardMap.getAward().getAwardId());
+            modelMap.put("awardName", award.getAwardName());
+            modelMap.put("createTime",award.getCreateTime());
+            modelMap.put("awardDesc",award.getAwardDesc());
+            modelMap.put("point",award.getPoint());
+            modelMap.put("awardImg",award.getAwardImg());
+           modelMap.put("userAwardId",userAwardMap.getUserAwardId());
+           if(userAwardMap.getUsedStatus()==1){
+               modelMap.put("needQRCode",true);
+           }else {
+               modelMap.put("needQRCode",false);
+           }
+            modelMap.put("needQRCode",true);
+            modelMap.put("success",true);
+            return modelMap;
         }
 return modelMap;
     }
@@ -196,8 +229,9 @@ try {
             award.setShopId(currentShop.getShopId());
             //添加award
             AwardExecution ae=awardService.addAward(award,thumbnail);
-            if(award.getShopId()==AwardStateEnum.SUCCESS.getState()){
+            if(ae.getState()==AwardStateEnum.SUCCESS.getState()){
                 modelMap.put("success",true);
+                return modelMap;
             }else {
                 modelMap.put("success",false);
                 modelMap.put("errMsg",ae.getStateInfo());
@@ -213,14 +247,17 @@ try {
     }
     return modelMap;
 }
-private ImageHolder handleImage(HttpServletRequest request,ImageHolder thumbnail){
-    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-    return (ImageHolder) multipartRequest
-            .getFile("thumbnail");
+private ImageHolder handleImage(HttpServletRequest request,ImageHolder thumbnail) throws IOException {
 
+    MultipartHttpServletRequest multipartRequest= (MultipartHttpServletRequest) request;
+    //取出缩略图并构建ImageHolder对象
+    CommonsMultipartFile thumbnailFile=(CommonsMultipartFile)multipartRequest.getFile("thumbnail");
+    thumbnail=new ImageHolder(thumbnailFile.getOriginalFilename(),thumbnailFile.getInputStream());
 
+return thumbnail;
 }
 @RequestMapping(value = "/listuserawardmapsbyshop",method = RequestMethod.GET)
+@ResponseBody
     private Map<String,Object> listUserAwardMapsByShop(HttpServletRequest request){
         //从session里获取店铺信息
     Map<String,Object> modelMap=new HashMap<String,Object>();

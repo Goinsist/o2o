@@ -56,7 +56,7 @@ $(function() {
             }
         });
     }
-    /
+
     $(document).on('infinite', '.infinite-scroll-bottom', function () {
         if (loading) return;
         addItems(pageSize, pageNum);

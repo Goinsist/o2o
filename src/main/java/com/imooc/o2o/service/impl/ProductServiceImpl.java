@@ -161,6 +161,23 @@ public class ProductServiceImpl implements ProductService {
         product.setImgAddr(thumbnailAddr);
     }
 
+
+
+
+    /**
+    *
+    * 功能描述:
+    * 查询某个商品下的所有详情图
+     * @return
+    * @author gongyu
+    * @date 2019/1/18 0018 23:41
+    */
+    @Override
+    public List<ProductImg> queryProductImgList(long productId){
+        return productImgDao.queryProductImgList(productId);
+
+
+    }
     /**
      * 删除某个商品下的所有详情图
      * @param productId

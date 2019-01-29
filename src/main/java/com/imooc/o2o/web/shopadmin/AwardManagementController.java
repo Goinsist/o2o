@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +56,7 @@ public class AwardManagementController {
 return modelMap;
     }
     @RequestMapping(value = "/modifyaward",method = RequestMethod.POST)
+    @ResponseBody
     private Map<String,Object> modifyAward(HttpServletRequest request){
     boolean statusChange=HttpServletRequestUtil.getBoolean(request,"statusChange");
 Map<String,Object> modelMap=new HashMap<String, Object>();
@@ -97,6 +100,7 @@ if(multipartResolver.isMultipart(request)){
                 AwardExecution pe=awardService.modifyAward(award,thumbnail);
                 if(pe.getState()==AwardStateEnum.SUCCESS.getState()){
                     modelMap.put("success",true);
+                    return  modelMap;
 
                 }else {
                     modelMap.put("success",false);
@@ -122,9 +126,11 @@ return modelMap;
         }
         return awardCondition;
     }
-    private ImageHolder handleImage(HttpServletRequest request,ImageHolder thumbnail){
-        MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-         return (ImageHolder) multipartRequest
-                 .getFile("thumbnail");
+    private ImageHolder handleImage(HttpServletRequest request,ImageHolder thumbnail) throws IOException {
+        MultipartHttpServletRequest multipartRequest= (MultipartHttpServletRequest) request;
+        //取出缩略图并构建ImageHolder对象
+        CommonsMultipartFile thumbnailFile=(CommonsMultipartFile)multipartRequest.getFile("thumbnail");
+        thumbnail=new ImageHolder(thumbnailFile.getOriginalFilename(),thumbnailFile.getInputStream());
+        return thumbnail;
     }
     }

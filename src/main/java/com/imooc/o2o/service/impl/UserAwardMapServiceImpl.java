@@ -29,11 +29,11 @@ private UserShopMapDao userShopMapDao;
             //页转行
             int beginIndex=PageCalculate.calculateRowIndex(pageIndex,pageSize);
             //根据查询条件分页返回用户与奖品的映射信息列表(用户领取奖品的信息列表)
-            List<UserAwardMap> userAwardMapList=userAwardMapDao.queryUserAwardMapList(userAwardMapCondition,pageIndex,pageSize);
+            List<UserAwardMap> userAwardMapList=userAwardMapDao.queryUserAwardMapList(userAwardMapCondition,beginIndex,pageSize);
             //返回总数
             int count=userAwardMapDao.queryUserAwardMapCount(userAwardMapCondition);
             UserAwardMapExecution ue=new UserAwardMapExecution();
-            ue.setUserAwardMapList((userAwardMapList));
+            ue.setUserAwardMapList(userAwardMapList);
             ue.setCount(count);
             return ue;
         }else {

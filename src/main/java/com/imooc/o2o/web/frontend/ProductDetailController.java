@@ -2,6 +2,7 @@ package com.imooc.o2o.web.frontend;
 
 import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Product;
+import com.imooc.o2o.entity.ProductImg;
 import com.imooc.o2o.service.ProductService;
 import com.imooc.o2o.util.HttpServletRequestUtil;
 import com.imooc.o2o.util.MatrixToImage;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,7 +24,8 @@ import java.util.Map;
 public class ProductDetailController {
     @Autowired
     private ProductService productService;
-
+@RequestMapping(value = "/listproductdetailpageinfo",method = RequestMethod.GET)
+@ResponseBody
     private Map<String, Object> listProductDetailPageInfo(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         //获取前台传递过来的productId
@@ -33,6 +36,8 @@ public class ProductDetailController {
             //根据productId获取商品信息，包含商品详情图列表
             product = productService.getProductById(productId);
             //2.0新增
+            List<ProductImg> productImgList=productService.queryProductImgList(productId);
+
             PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
             if (user == null) {
                 modelMap.put("needQRCode", false);
@@ -40,6 +45,7 @@ public class ProductDetailController {
             } else {
                 modelMap.put("needQRCode", true);
             }
+            modelMap.put("productImgList",productImgList);
             modelMap.put("product", product);
             modelMap.put("success", true);
         } else {

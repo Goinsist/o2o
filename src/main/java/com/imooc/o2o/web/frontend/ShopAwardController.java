@@ -61,6 +61,9 @@ Map<String,Object> modelMap=new HashMap<String, Object>();
     }
     return modelMap;
     }
+
+
+
     private Award compactAwardCondition4Search(long shopId, String awardName) {
         Award awardCondition = new Award();
         awardCondition.setShopId(shopId);

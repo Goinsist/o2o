@@ -7,6 +7,8 @@ import com.imooc.o2o.enums.UserProductMapStateEnum;
 import com.imooc.o2o.service.*;
 import com.imooc.o2o.util.HttpServletRequestUtil;
 import com.imooc.o2o.util.wechat.WechatUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/shopadmin")
 public class UserProductManagementController {
+    private static Logger log=LoggerFactory.getLogger(UserProductManagementController.class);
     @Autowired
     private UserProductMapService userProductMapService;
     @Autowired
@@ -81,9 +84,17 @@ public class UserProductManagementController {
             productSellDailyCondition.setShop(currentShop);
             Calendar calendar = Calendar.getInstance();
             //获取昨天的日期
+            calendar.set(Calendar.MINUTE,59);
+            calendar.set(Calendar.SECOND,59);
+            calendar.set(Calendar.MILLISECOND,0);
+            calendar.set(Calendar.HOUR_OF_DAY,23);
             calendar.add(Calendar.DATE, -1);
             Date endTime = calendar.getTime();
-            //获取昨天的日期
+            //获取七天前的日期
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            calendar.set(Calendar.MILLISECOND,0);
+            calendar.set(Calendar.HOUR_OF_DAY,0);
             calendar.add(Calendar.DATE, -6);
             Date beginTime = calendar.getTime();
             //根据传入的查询条件获取该店铺的商品销售情况
@@ -93,7 +104,7 @@ public class UserProductManagementController {
             //商品名列表，保证唯一性
             HashSet<String> legendData = new HashSet<String>();
             //x轴数据
-            HashSet<String> xData = new HashSet<String>();
+            TreeSet<String> xData = new TreeSet<String>();
             //定义series
             List<EchartSeries> series = new ArrayList<EchartSeries>();
             //日销量列表
@@ -139,8 +150,9 @@ public class UserProductManagementController {
             EchartXAxis exa = new EchartXAxis();
             exa.setData(xData);
             xAxis.add(exa);
-            modelMap.put("xAaxis", xAxis);
+            modelMap.put("xAxis", xAxis);
             modelMap.put("success", true);
+
 
 
         } else {
@@ -150,14 +162,39 @@ public class UserProductManagementController {
         return modelMap;
 
     }
+@RequestMapping(value = "/getuserproductbyid",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getUserProductMapByProductId(HttpServletRequest request){
+        Map<String,Object> modelMap=new HashMap<String, Object>();
+
+        long productId= (long) request.getSession().getAttribute("productId");
+            UserProductMapExecution userProductMapCondition = userProductMapService.getUserProductMapByProductId(productId);
+        UserProductMap userProductMap=  userProductMapCondition.getUserProductMap();
+                    String productName=   productService.getProductById(productId).getProductName();
+                             int point   =userProductMap.getPoint();
+                             if(userProductMapCondition.getState()==UserProductMapStateEnum.SUCCESS.getState()){
+                                 modelMap.put("success",true);
+                                 modelMap.put("productName",productName);
+                                 modelMap.put("point",point);
+                                 return modelMap;
+
+                             }else {
+                                 modelMap.put("success",false);
+                                 modelMap.put("errMsg","userProduct is null");
+                             }
+                            return modelMap;
+    }
+
 
     @RequestMapping(value = "/adduserproductmap", method = RequestMethod.GET)
+
     private String addUserProductMap(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取微信授权信息
+
         WechatAuth auth = getOperatorInfo(request);
         if (auth != null) {
             PersonInfo operator = auth.getPersonInfo();
-            request.getSession().setAttribute("user", operator);
+
             //获取二维码里state携带的content信息并解码
             String qrCodeinfo = new String(URLDecoder.decode(HttpServletRequestUtil.getString(request, "state"), "UTF-8"));
             ObjectMapper mapper = new ObjectMapper();
@@ -166,40 +203,41 @@ public class UserProductManagementController {
                 //将解码后的内容用aaa去替换掉之前生成二维码的时候加入的aaa前缀，转换成WechatInfo类型
                 wechatInfo = mapper.readValue(qrCodeinfo.replace("aaa", "\""), WechatInfo.class);
             } catch (Exception e) {
+
                 return "shop/operationfail";
             }
-            //校验二维码是否已经过去
+            //校验二维码是否已经过期
             if (!checkQRCodeInfo(wechatInfo)) {
                 return "shop/operationfail";
             }
-//校验二维码是否已经过期
-            if(!checkQRCodeInfo(wechatInfo)){
-                return "shop/operationfail";
-            }
+
             //获取添加消费记录所需要的参数并组件成userproductmap实例
-            Long productId=wechatInfo.getProductId();
-            Long customerId=wechatInfo.getCustomerId();
-            UserProductMap userProductMap=compactUserProductMap4Add(customerId,productId,auth.getPersonInfo());
+            Long productId = wechatInfo.getProductId();
+            Long customerId = wechatInfo.getCustomerId();
+            UserProductMap userProductMap = compactUserProductMap4Add(customerId, productId, operator);
             //空值校验
-            if(userProductMap!=null&&customerId!=-1){
-                try{
-                    if(!checkShopAuth(operator.getUserId(),userProductMap)){
+            if (userProductMap != null && customerId != -1) {
+                try {
+                    if (!checkShopAuth(operator.getUserId(), userProductMap)) {
                         return "shop/operationfail";
                     }
                     //添加消费记录
-                    UserProductMapExecution se=userProductMapService.addUserProductMap(userProductMap);
-                    if(se.getState()==UserProductMapStateEnum.SUCCESS.getState()){
+                    UserProductMapExecution se = userProductMapService.addUserProductMap(userProductMap);
+
+
+                    if (se.getState() == UserProductMapStateEnum.SUCCESS.getState()) {
+                        request.getSession().setAttribute("productId", productId);
+
                         return "shop/operationsuccess";
                     }
-                }catch (RuntimeException e){
+                } catch (RuntimeException e) {
                     return "shop/operationfail";
                 }
             }
         }
         return "shop/operationfail";
-
-
     }
+
 
     /**
      * 功能描述:
@@ -210,7 +248,7 @@ public class UserProductManagementController {
      * @date 2019/1/1 0001 15:59
      */
     private boolean checkQRCodeInfo(WechatInfo wechatInfo) {
-        if (wechatInfo != null && wechatInfo.getShopId() != null && wechatInfo.getCreateTime() > 0) {
+        if (wechatInfo != null && wechatInfo.getProductId() != null && wechatInfo.getCreateTime() > 0) {
             long nowTime = System.currentTimeMillis();
             if ((nowTime - wechatInfo.getCreateTime() <= 600000)) {
                 return true;
@@ -235,11 +273,19 @@ private WechatAuth getOperatorInfo(HttpServletRequest request){
         WechatAuth auth=null;
         if(null!=code){
             UserAccessToken token;
+            //防止code重复请求失效
             try{
-                token=WechatUtil.getUserAcessToken(code);
-                String openId=token.getOpenId();
-                request.getSession().setAttribute("openId",openId);
-                auth=wechatAuthService.getWechatAuthByOpenId(openId);
+                String openId= (String) request.getSession().getAttribute("openId");
+                if(openId==null){
+                    token=WechatUtil.getUserAcessToken(code);
+                     openId=token.getOpenId();
+                    request.getSession().setAttribute("openId",openId);
+                    auth=wechatAuthService.getWechatAuthByOpenId(openId);
+                }else {
+
+                    auth=wechatAuthService.getWechatAuthByOpenId(openId);
+                }
+
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -268,7 +314,7 @@ private UserProductMap compactUserProductMap4Add(Long customerId,Long productId,
         userProductMap.setUser(customer);
         userProductMap.setPoint(product.getPoint());
         userProductMap.setCreateTime(new Date());
-
+      userProductMap.setOperator(personInfo);
     }
     return userProductMap;
 }

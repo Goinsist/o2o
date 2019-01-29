@@ -1,7 +1,5 @@
 package com.imooc.o2o.web.frontend;
 
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.imooc.o2o.dto.UserAwardMapExecution;
 import com.imooc.o2o.entity.Award;
 import com.imooc.o2o.entity.PersonInfo;
@@ -12,10 +10,8 @@ import com.imooc.o2o.service.AwardService;
 import com.imooc.o2o.service.PersonInfoService;
 import com.imooc.o2o.service.ShopService;
 import com.imooc.o2o.service.UserAwardMapService;
-import com.imooc.o2o.util.CodeUtil;
 import com.imooc.o2o.util.HttpServletRequestUtil;
 import com.imooc.o2o.util.MatrixToImage;
-import com.imooc.o2o.util.ShortNetAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -25,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,7 +80,7 @@ String content="{aaauserAwardIdaaa:"+userAwardId+",aaacustomerIdaaa:"+user.getUs
 @ResponseBody
 private Map<String,Object> getAwardbyId(HttpServletRequest request){
     Map<String,Object> modelMap=new HashMap<String,Object>();
-    //虎丘前端传递过来的userAwardId
+    //前端传递过来的userAwardId
     long userAwardId=HttpServletRequestUtil.getLong(request,"userAwardId");
     //空值判断
     if(userAwardId>-1){

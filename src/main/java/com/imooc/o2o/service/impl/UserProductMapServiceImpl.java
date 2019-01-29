@@ -7,7 +7,6 @@ import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.entity.UserProductMap;
 import com.imooc.o2o.entity.UserShopMap;
-import com.imooc.o2o.enums.UserAwardMapStateEnum;
 import com.imooc.o2o.enums.UserProductMapStateEnum;
 import com.imooc.o2o.exceptions.UserProductMapOperationException;
 import com.imooc.o2o.service.UserProductMapService;
@@ -95,6 +94,16 @@ public class UserProductMapServiceImpl implements UserProductMapService {
         }
 
 
+    }
+
+    @Override
+    public UserProductMapExecution getUserProductMapByProductId(Long productId) {
+           UserProductMap userProductMap= userProductMapDao.queryByProductId(productId);
+           if(userProductMap.getPoint()!=null) {
+               return new UserProductMapExecution(UserProductMapStateEnum.SUCCESS, userProductMap);
+           }else {
+               return new UserProductMapExecution(UserProductMapStateEnum.NULL_USERPRODUCT_ID);
+           }
     }
 
     private UserShopMap compactUserShopMap4Add(Long userId,Long shopId,Integer point){

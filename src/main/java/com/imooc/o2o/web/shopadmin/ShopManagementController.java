@@ -283,6 +283,8 @@ public class ShopManagementController {
         ShopExceution se;
         try {
             ImageHolder thumbnail=new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream());
+
+                shop.getShopCategory().setParent(shopCategoryService.getShopParentCategoryByShopCategoryId(shop.getShopCategory().getShopCategoryId()));
             se = shopService.addShop(shop,thumbnail);
             if(se.getState()==ShopStateEnum.CHECK.getState()){
                 modelMap.put("success",true);

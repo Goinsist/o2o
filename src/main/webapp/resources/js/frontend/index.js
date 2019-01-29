@@ -4,7 +4,7 @@ $(function() {
 //访问后台，获取头条列表以及一级类别列表
     $.getJSON(url, function (data) {
         function  getContextPath() {
-            return "/o2o/";
+            return "/o2o";
         }
         if (data.success) {
             //获取后台传递过来的头条列表

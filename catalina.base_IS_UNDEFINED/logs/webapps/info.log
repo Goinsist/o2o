@@ -1,20 +1,3 @@
-2019-01-03 10:49:24.015[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 12164 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 10:49:24.113[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
-2019-01-03 10:51:31.193[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 4116 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 10:51:31.201[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
-2019-01-03 10:51:42.132[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 11.602 seconds (JVM running for 13.338)
-2019-01-02 23:59:09.697[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 2244 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
-2019-01-02 23:59:09.704[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
-2019-01-02 23:59:18.652[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 9.659 seconds (JVM running for 11.416)
-2019-01-03 00:00:00.025[schedulerFactory_Worker-1]INFO c.i.o2o.service.impl.ProductSellDailyServiceImpl-Quartz Running!
-2019-01-03 14:09:19.032[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Starting ProductSellDailyDaoTest on 6898FT5TFNOZBUR with PID 8888 (started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 14:09:19.037[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-No active profile set, falling back to default profiles: default
-2019-01-03 14:10:07.943[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Starting ProductSellDailyDaoTest on 6898FT5TFNOZBUR with PID 2484 (started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 14:10:07.951[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-No active profile set, falling back to default profiles: default
-2019-01-03 14:10:19.026[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Started ProductSellDailyDaoTest in 11.916 seconds (JVM running for 14.549)
-2019-01-03 14:16:05.395[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Starting ProductSellDailyDaoTest on 6898FT5TFNOZBUR with PID 10804 (started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 14:16:05.401[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-No active profile set, falling back to default profiles: default
-2019-01-03 14:16:17.026[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Started ProductSellDailyDaoTest in 12.379 seconds (JVM running for 14.926)
-2019-01-03 14:16:34.949[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Starting ProductSellDailyDaoTest on 6898FT5TFNOZBUR with PID 8524 (started by Asura in D:\IdeaProjects1\o2o)
-2019-01-03 14:16:34.954[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-No active profile set, falling back to default profiles: default
-2019-01-03 14:16:47.086[main]INFO com.imooc.o2o.dao.ProductSellDailyDaoTest-Started ProductSellDailyDaoTest in 12.902 seconds (JVM running for 15.635)
+2019-01-26 09:22:51.775[main]INFO com.imooc.o2o.O2oApplication-Starting O2oApplication on 6898FT5TFNOZBUR with PID 2900 (D:\IdeaProjects1\o2o\target\classes started by Asura in D:\IdeaProjects1\o2o)
+2019-01-26 09:22:51.907[main]INFO com.imooc.o2o.O2oApplication-No active profile set, falling back to default profiles: default
+2019-01-26 09:22:59.395[main]INFO com.imooc.o2o.O2oApplication-Started O2oApplication in 8.394 seconds (JVM running for 12.26)

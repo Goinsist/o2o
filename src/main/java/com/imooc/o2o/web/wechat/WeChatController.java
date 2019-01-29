@@ -27,7 +27,7 @@ import java.io.PrintWriter;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping("wechat")
+@RequestMapping("/wechat")
 public class WeChatController {
     private static Logger log=LoggerFactory.getLogger(WeChatController.class);
 

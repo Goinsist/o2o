@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -151,17 +150,23 @@ return modelMap;
 
 @RequestMapping(value = "/getproductbyid",method = RequestMethod.GET)
 @ResponseBody
-private Map<String,Object> getProductById(@RequestParam Long productId){
+private Map<String,Object> getProductById(HttpServletRequest request){
     Map<String,Object> modelMap=new HashMap<String, Object>();
+    long productId=HttpServletRequestUtil.getLong(request,"productId");
     //非空判断
     if(productId>-1){
         //获取商品信息
         Product product=productService.getProductById(productId);
         //获取该店铺下的商品类别列表
         List<ProductCategory> productCategoryList=productCategoryService.queryProductCategory(product.getShop().getShopId());
+
+
+
         modelMap.put("product",product);
         modelMap.put("productCategoryList",productCategoryList);
+
         modelMap.put("success",true);
+
     }else {
         modelMap.put("success",false);
         modelMap.put("errMsg","empty productId");
